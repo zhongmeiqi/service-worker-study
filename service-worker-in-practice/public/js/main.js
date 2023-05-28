@@ -3,19 +3,30 @@
  * @author huanghuiquan
  */
 
-define(function (require) {
-  "use strict";
-  let axios = require("axios");
-  let render = require("./render");
+window.addEventListener("load", function (event) {
+  if ("serviceWorker" in window.navigator) {
+    navigator.serviceWorker
+      .register("sw.js", { scope: "/" })
+      .then(function (registeration) {
+        console.log("Service worker register with scope", registeration.scope);
+      })
+      .catch((error) => {
+        console.log(error, "sw fail");
+      });
 
-  // 异步请求数据，并在前端渲染
-  axios.get("/api/movies").then(function (response) {
-    let $movieList = document.querySelector(".movie-list");
+    navigator.serviceWorker.oncontrollerchange = function (event) {
+      window.alert("页面已更新");
+      console.log("页面已更新");
+    };
 
-    if (response.status !== 200) {
-      $movieList.innerHTML = "网络错误";
-      return;
+    if (!navigator.onLine) {
+      window.alert("网络已断开，内容可能已过期");
+
+      window.addEventListener("online", function (event) {
+        window.alert("网络已连接，刷新获取最新内容");
+      });
     }
-    $movieList.innerHTML = render(response.data);
-  });
+  } else {
+    console.log("fail");
+  }
 });

@@ -10,12 +10,6 @@ let fs = require("fs");
 let app = express();
 let port = 8080;
 
-let movies = JSON.parse(
-  fs.readFileSync(path.join(__dirname, "/movies.json"), {
-    encoding: "utf-8",
-  })
-);
-
 /**
  * Shuffles array in place. ES6 version
  *
@@ -36,12 +30,6 @@ app.use(express.static("public"));
 // 首页 html 响应
 app.get("/", function (req, res) {
   res.sendFile("index.html", { root: "public" });
-});
-
-// 电影列表数据接口
-app.get("/api/movies", function (req, res) {
-  shuffle(movies.subjects);
-  res.json(movies);
 });
 
 // 启动服务器
