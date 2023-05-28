@@ -8,6 +8,7 @@ window.addEventListener("load", function (event) {
     navigator.serviceWorker
       .register("sw.js", { scope: "/" })
       .then(function (registeration) {
+        // 这里可以打印sw的作用范围
         console.log("Service worker register with scope", registeration.scope);
       })
       .catch((error) => {
