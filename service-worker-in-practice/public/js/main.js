@@ -1,6 +1,5 @@
 /**
  * @file main.js
- * @author huanghuiquan
  */
 
 window.addEventListener("load", function (event) {
@@ -31,3 +30,4 @@ window.addEventListener("load", function (event) {
     console.log("fail");
   }
 });
+

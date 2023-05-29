@@ -1,6 +1,5 @@
 /**
  * @file render.js
- * @author huanghuiquan
  */
 
 define(function (require) {
@@ -20,3 +19,4 @@ define(function (require) {
     return html;
   };
 });
+

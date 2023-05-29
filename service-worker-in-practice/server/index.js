@@ -1,6 +1,6 @@
 /**
  * @file index.js
- * @author huanghuiquan
+ 
  */
 
 let path = require("path");
@@ -36,3 +36,4 @@ app.get("/", function (req, res) {
 app.listen(port, function () {
   console.log(`Listening on port ${port}`);
 });
+

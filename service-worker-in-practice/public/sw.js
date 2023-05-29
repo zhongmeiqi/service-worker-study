@@ -12,12 +12,14 @@ let CACHE_URLS = [
 
 console.log("hello service world11");
 
+//预缓存
 function precache() {
   return caches.open(CACHE_NAME).then(function (cache) {
     cache.addAll(CACHE_URLS);
   });
 }
 
+// 清理缓存
 function clearCache() {
   return caches.keys().then((keys) => {
     keys.forEach((key) => {
@@ -28,6 +30,7 @@ function clearCache() {
   });
 }
 
+// 拉取请求并缓存请求
 function fetchAndCache(req) {
   return fetch(req).then(function (res) {
     saveToCache(req, res.clone());
@@ -35,6 +38,7 @@ function fetchAndCache(req) {
   });
 }
 
+// 将请求以及响应结果存储下来
 function saveToCache(req, res) {
   return caches.open(CACHE_NAME).then((cache) => cache.put(req, res));
 }
@@ -44,6 +48,7 @@ self.addEventListener("install", function (event) {
 });
 
 self.addEventListener("activate", function (event) {
+  // claim() 【声明】方法会立即控制这些页面
   event.waitUntil(Promise.all([clearCache(), self.clients.claim()]));
 });
 
@@ -72,3 +77,4 @@ self.addEventListener("fetch", function (event) {
     })
   );
 });
+
